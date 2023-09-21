@@ -1,39 +1,43 @@
 package com.example.projeto.controler
 
+import com.example.projeto.service.CarroSevice
 import com.example.projeto.wrapper.ApiResponse
+import com.example.projeto.wrapper.RequestCarroWrapper
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @CrossOrigin
-@RequestMapping("carro")
-class CarroController() {
+@RequestMapping("/api")
+class CarroController(
+        private val carroService: CarroSevice
+) {
 
     @PostMapping("/adicionarCarro")
-    fun adicionarCarro(@RequestBody body: Map<String, Any?> ): ApiResponse<Any?>{
+    fun adicionarCarro(@RequestBody carro: RequestCarroWrapper): ApiResponse<Any?>{
        return try {
-           ApiResponse(HttpStatus.OK, data = null, message = "eba conectou")
+           ApiResponse(HttpStatus.OK, data = carroService.adicionarCarro(carro))
         } catch (e: Exception){
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "nao deu certo")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao adicionar carro")
         }
     }
 
     @PostMapping("/excluirCarro")
-    fun excluirCarro(@RequestBody body: Map<String, Any?> ): ApiResponse<Any?>{
+    fun excluirCarro(@RequestBody carro: RequestCarroWrapper): ApiResponse<Any?>{
         return try {
-            ApiResponse(HttpStatus.OK, data = null, message = "eba conectou")
+            ApiResponse(HttpStatus.OK, data = carroService.excluirCarro(carro))
         } catch (e: Exception){
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "nao deu certo")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao excluir carro")
         }
     }
 
     @PostMapping("/editarCarro")
-    fun editarCarro(@RequestBody body: Map<String, Any?> ): ApiResponse<Any?>{
+    fun editarCarro(@RequestBody carro: RequestCarroWrapper): ApiResponse<Any?>{
         return try {
-            ApiResponse(HttpStatus.OK, data = null, message = "eba conectou")
+            ApiResponse(HttpStatus.OK, data = carroService.editarCarro(carro))
         } catch (e: Exception){
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "nao deu certo")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao editar carro")
         }
     }
 

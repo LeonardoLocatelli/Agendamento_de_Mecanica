@@ -1,7 +1,7 @@
 package com.example.projeto.wrapper
 
 class RequestCarroWrapper(
-        val id: Int? = null,
+        val id: String? = null,
         val marca: String? = null,
         val ano: Int? = null,
         val modelo: String? = null,

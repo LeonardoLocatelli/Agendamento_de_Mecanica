@@ -25,7 +25,7 @@ class SpringConfig : WebMvcConfigurationSupport() {
     @Bean
     open fun apiDocket(): Docket {
         return Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.desafioinspiratech.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.projeto.controler"))
                 .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/")
@@ -54,7 +54,6 @@ class SpringConfig : WebMvcConfigurationSupport() {
     }
 
     public override fun addViewControllers(registry: ViewControllerRegistry) {
-        registry.addRedirectViewController("/v2/api-docs", "/v2/api-docs?group=restful-api")
         registry.addRedirectViewController("/swagger-resources/configuration/ui", "/swagger-resources/configuration/ui")
         registry.addRedirectViewController(
                 "/swagger-resources/configuration/security",
@@ -68,6 +67,4 @@ class SpringConfig : WebMvcConfigurationSupport() {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/")
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/")
     }
-
-
 }
