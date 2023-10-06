@@ -2,9 +2,10 @@ package com.example.projeto.wrapper
 
 class RequestCarroWrapper(
         val id: String? = null,
-        val marca: String? = null,
-        val ano: Int? = null,
-        val modelo: String? = null,
-        val problema: String? = null,
-        val dono: String? = null,
+        var marca: String? = null,
+        var ano: Int? = null,
+        var modelo: String? = null,
+        var problema: String? = null,
+        var dono: String? = null,
+        var telefoneDono: String? = null
 )

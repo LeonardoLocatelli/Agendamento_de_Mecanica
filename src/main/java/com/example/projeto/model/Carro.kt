@@ -3,26 +3,30 @@ package com.example.projeto.model
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import java.util.*
 
-@Document(collection = "Carro")
+@Document(collection = "carro")
 data class Carro(
 
-    @Id
-    @Field("carroId")
-    val carroId: String? = null,
+        @Id
+        @Field("_id")
+        var id: String = UUID.randomUUID().toString(),
 
-    @Field("marca")
-    val marca: String? = null,
+        @Field("marca")
+        var marca: String? = null,
 
-    @Field("ano")
-    val ano: Int? = null,
+        @Field("ano")
+        var ano: Int? = null,
 
-    @Field("modelo")
-    val modelo: String? = null,
+        @Field("modelo")
+        var modelo: String? = null,
 
-    @Field("problema")
-    val problema: String? = null,
+        @Field("problema")
+        var problema: String? = null,
 
-    @Field("dono")
-    val dono: String? = null
+        @Field("dono")
+        var dono: String? = null,
+
+        @Field("telefonedono")
+        var telefonedono: String? = null
 )
