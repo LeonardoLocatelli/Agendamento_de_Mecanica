@@ -37,7 +37,6 @@ class LoginService (
 
     fun editarLogin(login: RequestLoginWrapper): ApiResponse<Login> {
         return try {
-
             val loginMongo = login.id?.let { loginRepository.findById(it) }!!.get()
 
             loginMongo.nome = login.nome ?: loginMongo.nome
