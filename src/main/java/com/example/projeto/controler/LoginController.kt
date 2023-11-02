@@ -31,13 +31,14 @@ class LoginController(
         }
     }
 
-    @PostMapping("/editarLogin")
-    fun editarLogin(@RequestBody login: RequestLoginWrapper): ApiResponse<Login> {
+    @PostMapping("/logar")
+    fun logar(@RequestBody body: RequestLoginWrapper): ApiResponse<String> {
         return try {
-            loginService.editarLogin(login)
+                loginService.logar(body)
         } catch (e: Exception) {
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao editar login")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "email ou senha incoreto")
         }
     }
+
 
 }

@@ -5,8 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import java.util.*
 
-@Document(collection = "carro")
-data class Carro(
+@Document(collection = "servico")
+data class Servico(
 
         @Id
         @Field("_id")
@@ -27,6 +27,18 @@ data class Carro(
         @Field("dono")
         var dono: String? = null,
 
-        @Field("telefonedono")
-        var telefonedono: String? = null
+        @Field("telefone")
+        var telefone: String? = null,
+
+        @Field("cpf")
+        var cpf: String? = null,
+
+        @Field("mecanico")
+        var mecanico: String? = null,
+
+        @Field("dataSaida")
+        var dataSaida: String? = null,
+
+        @Field("dataEntrada")
+        var dataEntrada: String? = null,
 )

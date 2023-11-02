@@ -1,6 +1,8 @@
 package com.example.projeto.controler
 
+
 import com.example.projeto.model.Servico
+import com.example.projeto.service.ServicoSevice
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestServicoWrapper
 import org.springframework.http.HttpStatus
@@ -10,32 +12,43 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-class ServicoController() {
+class ServicoController(
+        private val servicoService: ServicoSevice
+) {
 
-    @PostMapping("/adicionarServico")
-    fun adicionarServico(@RequestBody carro: RequestServicoWrapper): ApiResponse<String> {
+    @PostMapping("/cadastrarServico")
+    fun cadastrarServico(@RequestBody servico: RequestServicoWrapper): ApiResponse<String> {
         return try {
-            carroService.adicionarServico(carro)
+            servicoService.cadastrarServico(servico)
         } catch (e: Exception) {
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao adicionar carro")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao adicionar servico")
         }
     }
 
-    @PostMapping("/excluirServico/{carroId}")
-    fun excluirServico(@PathVariable carroId: String): ApiResponse<String> {
+    @PostMapping("/excluirServico/{servicoId}")
+    fun excluirServico(@PathVariable servicoId: String): ApiResponse<String> {
         return try {
-            carroService.excluirServico(carroId)
+            servicoService.excluirServico(servicoId)
         } catch (e: Exception) {
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao excluir carro")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao excluir servico")
         }
     }
 
     @PostMapping("/editarServico")
-    fun editarServico(@RequestBody carro: RequestServicoWrapper): ApiResponse<Servico> {
+    fun editarServico(@RequestBody servico: RequestServicoWrapper): ApiResponse<Servico> {
         return try {
-            carroService.editarServico(carro)
+             servicoService.editarServico(servico)
         } catch (e: Exception) {
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao editar carro")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao editar servico")
+        }
+    }
+
+    @PostMapping("/buscarListaServico")
+    fun buscarListaServico(): ApiResponse<List<Servico>> {
+        return try {
+            servicoService.buscaServico()
+        } catch (e: Exception) {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao buscar lista de servico")
         }
     }
 

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
 @Service
-class LoginService (
+class LoginService(
         private val loginRepository: LoginRepository
 ) {
 
@@ -19,7 +19,7 @@ class LoginService (
                     email = login.email,
                     senha = login.senha,
 
-            ))
+                    ))
             ApiResponse(HttpStatus.OK, data = null, message = "Login Salvo com sucesso!")
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Login não encontrado")
@@ -35,19 +35,12 @@ class LoginService (
         }
     }
 
-    fun editarLogin(login: RequestLoginWrapper): ApiResponse<Login> {
-        return try {
-            val loginMongo = login.id?.let { loginRepository.findById(it) }!!.get()
-
-            loginMongo.nome = login.nome ?: loginMongo.nome
-            loginMongo.email = login.email ?: loginMongo.email
-            loginMongo.senha = login.senha ?: loginMongo.senha
-
-            loginRepository.save(loginMongo)
-
-            ApiResponse(HttpStatus.OK, data = loginMongo, message = "Login editado com sucesso!")
-        } catch (e: Exception) {
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Login não encontrado")
+    fun logar(body: RequestLoginWrapper): ApiResponse<String> {
+        val loginMongo = loginRepository.findDistinctByEmail(body.email!!)
+        return if (loginMongo.email == body.email && loginMongo.senha == body.senha) {
+            ApiResponse(HttpStatus.OK, data = "Logado com sucesso", message = "")
+        } else {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Não foi possivel logar ")
         }
     }
 

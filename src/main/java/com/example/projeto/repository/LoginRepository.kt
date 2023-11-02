@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface LoginRepository: MongoRepository<Login, String> {
 
+    fun findDistinctByEmail(email: String):Login
+
     override fun deleteById(id: String)
 }
