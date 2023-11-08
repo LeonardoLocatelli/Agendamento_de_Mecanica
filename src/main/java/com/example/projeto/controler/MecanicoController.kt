@@ -1,6 +1,7 @@
 package com.example.projeto.controler
 
 import com.example.projeto.model.Mecanico
+import com.example.projeto.model.Servico
 import com.example.projeto.service.MecanicoService
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestMecanicoWrapper
@@ -14,10 +15,10 @@ class MecanicoController(
         private val mecanicoService: MecanicoService
 ) {
 
-    @PostMapping("/adicionarMecanico")
-    fun adicionarMecanico(@RequestBody mecanico: RequestMecanicoWrapper): ApiResponse<String> {
+    @PostMapping("/cadastrarMecanico")
+    fun cadastrarMecanico(@RequestBody mecanico: RequestMecanicoWrapper): ApiResponse<String> {
         return try {
-            mecanicoService.adicionarMecanico(mecanico)
+            mecanicoService.cadastrarMecanico(mecanico)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao adicionar mecanico")
         }
@@ -38,6 +39,15 @@ class MecanicoController(
             mecanicoService.editarMecanico(mecanico)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao editar mecanico")
+        }
+    }
+
+    @PostMapping("/buscarListaMecanico")
+    fun buscarListaMecanico(): ApiResponse<List<Mecanico>> {
+        return try {
+            mecanicoService.buscaMecanico()
+        } catch (e: Exception) {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao buscar lista de mecanicos")
         }
     }
 

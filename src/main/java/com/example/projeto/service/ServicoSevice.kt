@@ -26,7 +26,7 @@ class ServicoSevice(
                     cpf = servico.cpf,
                     mecanico = servico.mecanico,
                     dataEntrada = servico.dataEntrada,
-                    dataSaida = servico.dataSaia
+                    dataSaida = servico.dataSaida
             ))
             ApiResponse(HttpStatus.OK, data = null, message = "Serviço salvo com sucesso!")
         } catch (e: Exception) {
@@ -36,7 +36,7 @@ class ServicoSevice(
 
     fun excluirServico(servicoId: String): ApiResponse<String> {
         return try {
-            servicoId.let { servicoRepository.deleteById(it) }
+            servicoRepository.deleteById(servicoId)
             ApiResponse(HttpStatus.OK, data = null, message = "Serviço excluído com sucesso!")
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Serviço não encontrado")
@@ -56,10 +56,8 @@ class ServicoSevice(
             servicoMongo.telefone = servico.telefone ?: servicoMongo.telefone
             servicoMongo.cpf = servico.cpf ?: servicoMongo.cpf
             servicoMongo.mecanico = servico.mecanico ?: servicoMongo.mecanico
-
-            // Atualize as datas de entrada e previsão de saída conforme necessário
-            servicoMongo.dataEntrada = servico.dataEntrada
-            servicoMongo.dataSaida = servico.dataSaia
+            servicoMongo.dataEntrada = servico.dataEntrada ?: servicoMongo.dataEntrada
+            servicoMongo.dataSaida = servico.dataSaida ?: servicoMongo.dataSaida
 
             servicoRepository.save(servicoMongo)
 

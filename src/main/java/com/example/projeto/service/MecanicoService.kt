@@ -1,6 +1,7 @@
 package com.example.projeto.service
 
 import com.example.projeto.model.Mecanico
+import com.example.projeto.model.Servico
 import com.example.projeto.repository.MecanicoRepository
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestMecanicoWrapper
@@ -12,7 +13,7 @@ class MecanicoService(
         private val mecanicoRepository: MecanicoRepository
 ) {
 
-    fun adicionarMecanico(mecanico: RequestMecanicoWrapper): ApiResponse<String> {
+    fun cadastrarMecanico(mecanico: RequestMecanicoWrapper): ApiResponse<String> {
         return try {
             mecanicoRepository.save(Mecanico(
                     nome = mecanico.nome,
@@ -50,6 +51,16 @@ class MecanicoService(
             ApiResponse(HttpStatus.OK, data = mecanicoMongo)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Mecanico não encontrado")
+        }
+    }
+
+
+    fun buscaMecanico(): ApiResponse<List<Mecanico>> {
+        return try {
+            val mecanicosMongo = mecanicoRepository.findAll()
+            ApiResponse(HttpStatus.OK, data = mecanicosMongo)
+        } catch (e: Exception) {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Mecanicos não encontrados")
         }
     }
 

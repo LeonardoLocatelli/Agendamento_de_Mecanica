@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 @Repository
 interface ServicoRepository: MongoRepository<Servico, String> {
 
-    override fun deleteById(id: String)
 
     override fun findAll(): List<Servico>
 }

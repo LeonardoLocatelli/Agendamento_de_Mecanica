@@ -13,5 +13,5 @@ class RequestServicoWrapper(
         var problema: String? = null,
         var mecanico: String? = null,
         var dataEntrada : String? = null,
-        var dataSaia: String? = null,
+        var dataSaida: String? = null,
 )
