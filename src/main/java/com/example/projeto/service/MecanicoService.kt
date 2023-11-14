@@ -1,7 +1,6 @@
 package com.example.projeto.service
 
 import com.example.projeto.model.Mecanico
-import com.example.projeto.model.Servico
 import com.example.projeto.repository.MecanicoRepository
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestMecanicoWrapper
@@ -19,7 +18,8 @@ class MecanicoService(
                     nome = mecanico.nome,
                     telefone = mecanico.telefone,
                     cpf = mecanico.cpf,
-                    salario = mecanico.salario
+                    salario = mecanico.salario,
+                    ocupado = false
             ))
             ApiResponse(HttpStatus.OK, data = null, message = "Mecanico Salvo com sucesso!")
         } catch (e: Exception) {
@@ -29,7 +29,7 @@ class MecanicoService(
 
     fun excluirMecanico(mecanicoId: String): ApiResponse<String> {
         return try {
-            mecanicoId.let { mecanicoRepository.deleteById(it) }
+             mecanicoRepository.deleteByNome(mecanicoId)
             ApiResponse(HttpStatus.OK, data = null, message = "Mecanico Excluido com sucesso!")
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Mecanico não encontrado")
@@ -57,7 +57,7 @@ class MecanicoService(
 
     fun buscaMecanico(): ApiResponse<List<Mecanico>> {
         return try {
-            val mecanicosMongo = mecanicoRepository.findAll()
+            val mecanicosMongo = mecanicoRepository.findAllByOcupado(false)
             ApiResponse(HttpStatus.OK, data = mecanicosMongo)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Mecanicos não encontrados")

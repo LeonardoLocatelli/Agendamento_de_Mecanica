@@ -1,17 +1,17 @@
 package com.example.projeto.service
 
 import com.example.projeto.model.Servico
+import com.example.projeto.repository.MecanicoRepository
 import com.example.projeto.repository.ServicoRepository
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestServicoWrapper
-import io.swagger.annotations.Api
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import java.util.Date
 
 @Service
 class ServicoSevice(
-        private val servicoRepository: ServicoRepository
+        private val servicoRepository: ServicoRepository,
+        private val mecanicoRepository: MecanicoRepository
 ) {
 
     fun cadastrarServico(servico: RequestServicoWrapper): ApiResponse<String> {
@@ -28,6 +28,11 @@ class ServicoSevice(
                     dataEntrada = servico.dataEntrada,
                     dataSaida = servico.dataSaida
             ))
+
+            val mecanico = mecanicoRepository.findByNome(servico.mecanico!!)
+                mecanico.ocupado = true
+            mecanicoRepository.save(mecanico)
+
             ApiResponse(HttpStatus.OK, data = null, message = "Serviço salvo com sucesso!")
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Serviço não encontrado")

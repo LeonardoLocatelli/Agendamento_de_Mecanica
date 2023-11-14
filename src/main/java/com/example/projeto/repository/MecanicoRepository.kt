@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface MecanicoRepository: MongoRepository<Mecanico, String> {
 
-    override fun deleteById(id: String)
+    fun findAllByOcupado(ocupado: Boolean): List<Mecanico>
+    fun findByNome(nome: String): Mecanico
+    fun deleteByNome(nome: String)
 }

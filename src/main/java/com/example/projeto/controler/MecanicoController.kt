@@ -1,7 +1,6 @@
 package com.example.projeto.controler
 
 import com.example.projeto.model.Mecanico
-import com.example.projeto.model.Servico
 import com.example.projeto.service.MecanicoService
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestMecanicoWrapper
