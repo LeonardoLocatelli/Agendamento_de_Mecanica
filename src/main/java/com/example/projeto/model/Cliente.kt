@@ -20,9 +20,6 @@ class Cliente (
         @Field("modelo")
         var modelo: String? = null,
 
-        @Field("problema")
-        var problema: String? = null,
-
         @Field("dono")
         var dono: String? = null,
 

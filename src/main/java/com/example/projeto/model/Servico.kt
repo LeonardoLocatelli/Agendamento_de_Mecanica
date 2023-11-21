@@ -1,5 +1,6 @@
 package com.example.projeto.model
 
+import com.example.projeto.enum.ServicoEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
@@ -41,4 +42,7 @@ data class Servico(
 
         @Field("dataEntrada")
         var dataEntrada: String? = null,
+
+        @Field("situacao")
+        var situacao: ServicoEnum,
 )

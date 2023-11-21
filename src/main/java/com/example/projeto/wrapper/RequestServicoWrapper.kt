@@ -1,7 +1,5 @@
 package com.example.projeto.wrapper
 
-import java.util.Date
-
 class RequestServicoWrapper(
         var id: String? = null,
         val nome: String? = null,
@@ -14,4 +12,5 @@ class RequestServicoWrapper(
         var mecanico: String? = null,
         var dataEntrada : String? = null,
         var dataSaida: String? = null,
+        var situacao: String? = null
 )

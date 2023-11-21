@@ -52,4 +52,13 @@ class ServicoController(
         }
     }
 
+    @PostMapping("/alteraSituacaoServico/{servicoId}")
+    fun alteraSituacaoServico(@PathVariable servicoId: String): ApiResponse<Boolean> {
+       return try {
+           return servicoService.alteraSituacao(servicoId)
+        } catch (e: Exception) {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = false, message = "erro ao buscar servico")
+        }
+    }
+
 }

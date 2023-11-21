@@ -1,5 +1,6 @@
 package com.example.projeto.service
 
+import com.example.projeto.enum.ServicoEnum
 import com.example.projeto.model.Servico
 import com.example.projeto.repository.MecanicoRepository
 import com.example.projeto.repository.ServicoRepository
@@ -26,7 +27,8 @@ class ServicoSevice(
                     cpf = servico.cpf,
                     mecanico = servico.mecanico,
                     dataEntrada = servico.dataEntrada,
-                    dataSaida = servico.dataSaida
+                    dataSaida = servico.dataSaida,
+                    situacao = ServicoEnum.ANDAMENTO
             ))
 
             val mecanico = mecanicoRepository.findByNome(servico.mecanico!!)
@@ -41,6 +43,11 @@ class ServicoSevice(
 
     fun excluirServico(servicoId: String): ApiResponse<String> {
         return try {
+            var servico = servicoRepository.findById(servicoId)
+
+            val mecanico = mecanicoRepository.findByNome(servico.get().mecanico!!)
+            mecanico.ocupado = false
+            mecanicoRepository.save(mecanico)
             servicoRepository.deleteById(servicoId)
             ApiResponse(HttpStatus.OK, data = null, message = "Serviço excluído com sucesso!")
         } catch (e: Exception) {
@@ -78,6 +85,16 @@ class ServicoSevice(
             ApiResponse(HttpStatus.OK, data = servicosMongo)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Serviços não encontrados")
+        }
+    }
+
+    fun alteraSituacao(servico: String): ApiResponse<Boolean> {
+        return try {
+             val servicoMongo = servicoRepository.findById(servico)
+             servicoMongo.get().situacao = ServicoEnum.FINALIZADO
+            ApiResponse(HttpStatus.OK, data = true)
+        } catch (e: Exception) {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = false, message = "Serviços não encontrados")
         }
     }
 }

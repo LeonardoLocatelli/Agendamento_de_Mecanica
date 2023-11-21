@@ -8,5 +8,4 @@ class RequestClienteWrapper (
         var marca: String? = null,
         var ano: Int? = null,
         var modelo: String? = null,
-        var problema: String? = null
 )

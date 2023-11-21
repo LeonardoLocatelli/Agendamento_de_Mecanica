@@ -3,6 +3,7 @@ package com.example.projeto.service
 import com.example.projeto.model.Mecanico
 import com.example.projeto.repository.MecanicoRepository
 import com.example.projeto.wrapper.ApiResponse
+import com.example.projeto.wrapper.MecanicoBody
 import com.example.projeto.wrapper.RequestMecanicoWrapper
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -27,12 +28,12 @@ class MecanicoService(
         }
     }
 
-    fun excluirMecanico(mecanicoId: String): ApiResponse<String> {
+    fun excluirMecanico(body: MecanicoBody): ApiResponse<Boolean> {
         return try {
-             mecanicoRepository.deleteByNome(mecanicoId)
-            ApiResponse(HttpStatus.OK, data = null, message = "Mecanico Excluido com sucesso!")
+             mecanicoRepository.deleteByNome(body.mecanicoNome!!)
+            ApiResponse(HttpStatus.OK, data = true, message = "Mecanico Excluido com sucesso!")
         } catch (e: Exception) {
-            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Mecanico não encontrado")
+            ApiResponse(HttpStatus.BAD_REQUEST, data = false, message = "Mecanico não encontrado")
         }
     }
 

@@ -9,3 +9,7 @@ class RequestMecanicoWrapper (
         var cpf: String? = null,
         var salario: BigDecimal? = null
 )
+
+class MecanicoBody (
+        var mecanicoNome: String? = null
+)

@@ -3,6 +3,7 @@ package com.example.projeto.controler
 import com.example.projeto.model.Mecanico
 import com.example.projeto.service.MecanicoService
 import com.example.projeto.wrapper.ApiResponse
+import com.example.projeto.wrapper.MecanicoBody
 import com.example.projeto.wrapper.RequestMecanicoWrapper
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -23,10 +24,10 @@ class MecanicoController(
         }
     }
 
-    @PostMapping("/excluirMecanico/{mecanicoId}")
-    fun excluirMecanico(@PathVariable mecanicoId: String): ApiResponse<String> {
+    @PostMapping("/excluirMecanico")
+    fun excluirMecanico(@RequestBody body: MecanicoBody): ApiResponse<Boolean> {
         return try {
-            mecanicoService.excluirMecanico(mecanicoId)
+            mecanicoService.excluirMecanico(body)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao excluir mecanico")
         }

@@ -21,7 +21,6 @@ class ClienteService(
                     marca = cliente.marca,
                     ano = cliente.ano,
                     modelo = cliente.modelo,
-                    problema = "",
                     dono = cliente.nome,
                     telefone = cliente.telefone,
                     cpf = cliente.cpf,
@@ -50,7 +49,6 @@ class ClienteService(
             clienteMongo.marca = cliente.marca ?: clienteMongo.marca
             clienteMongo.ano = cliente.ano ?: clienteMongo.ano
             clienteMongo.modelo = cliente.modelo ?: clienteMongo.modelo
-            clienteMongo.problema = cliente.problema ?: clienteMongo.problema
             clienteMongo.dono = cliente.nome ?: clienteMongo.dono
             clienteMongo.telefone = cliente.telefone ?: clienteMongo.telefone
             clienteMongo.cpf = cliente.cpf ?: clienteMongo.cpf
