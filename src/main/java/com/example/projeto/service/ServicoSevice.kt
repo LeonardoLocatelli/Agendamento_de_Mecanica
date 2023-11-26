@@ -28,7 +28,7 @@ class ServicoSevice(
                     mecanico = servico.mecanico,
                     dataEntrada = servico.dataEntrada,
                     dataSaida = servico.dataSaida,
-                    situacao = ServicoEnum.ANDAMENTO
+                    situacao = ServicoEnum.ANDAMENTO.nome
             ))
 
             val mecanico = mecanicoRepository.findByNome(servico.mecanico!!)
@@ -91,7 +91,8 @@ class ServicoSevice(
     fun alteraSituacao(servico: String): ApiResponse<Boolean> {
         return try {
              val servicoMongo = servicoRepository.findById(servico)
-             servicoMongo.get().situacao = ServicoEnum.FINALIZADO
+            servicoMongo.get().situacao = ServicoEnum.FINALIZADO.nome
+            servicoRepository.save(servicoMongo.get())
             ApiResponse(HttpStatus.OK, data = true)
         } catch (e: Exception) {
             ApiResponse(HttpStatus.BAD_REQUEST, data = false, message = "Serviços não encontrados")

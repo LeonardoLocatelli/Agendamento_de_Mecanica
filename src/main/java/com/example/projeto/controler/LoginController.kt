@@ -4,6 +4,7 @@ import com.example.projeto.model.Login
 import com.example.projeto.service.LoginService
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestLoginWrapper
+import com.example.projeto.wrapper.RetornoMecanicaWrapper
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -40,5 +41,13 @@ class LoginController(
         }
     }
 
+    @PostMapping("/buscaPerfilMecanica")
+    fun buscaPerfilMecanica(): ApiResponse<RetornoMecanicaWrapper> {
+        return try {
+            loginService.buscaMecanica()
+        } catch (e: Exception) {
+            ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "erro ao buscar informaçoes da mecanica")
+        }
+    }
 
 }

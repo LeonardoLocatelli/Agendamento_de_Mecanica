@@ -44,5 +44,5 @@ data class Servico(
         var dataEntrada: String? = null,
 
         @Field("situacao")
-        var situacao: ServicoEnum,
+        var situacao: String,
 )

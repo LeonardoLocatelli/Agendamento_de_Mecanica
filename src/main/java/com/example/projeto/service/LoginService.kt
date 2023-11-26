@@ -4,6 +4,7 @@ import com.example.projeto.model.Login
 import com.example.projeto.repository.LoginRepository
 import com.example.projeto.wrapper.ApiResponse
 import com.example.projeto.wrapper.RequestLoginWrapper
+import com.example.projeto.wrapper.RetornoMecanicaWrapper
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -42,6 +43,15 @@ class LoginService(
         } else {
             ApiResponse(HttpStatus.BAD_REQUEST, data = null, message = "Não foi possivel logar ")
         }
+    }
+
+    fun buscaMecanica(): ApiResponse<RetornoMecanicaWrapper> {
+        val mecanica = loginRepository.findAll()
+        val retorno = RetornoMecanicaWrapper(
+                nome = mecanica[0].nome!!,
+                email = mecanica[0].email!!
+        )
+        return ApiResponse(HttpStatus.OK, data = retorno)
     }
 
 }
